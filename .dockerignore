@@ -1,0 +1,10 @@
+**
+!/api/**
+!/engine/**
+!/misc/**
+!__init__.py
+!KubiScan.py
+!Pipfile
+!Pipfile.lock
+!risky_roles.yaml
+!static_risky_roles.py

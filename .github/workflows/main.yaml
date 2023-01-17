@@ -1,0 +1,46 @@
+name: Docker Image
+
+on: [workflow_dispatch]
+
+env:
+  GITHUB_TOKEN: ${{ github.token }}
+  FLEXIBITS_PAT: ${{ secrets.FLEXIBITS_PAT }}
+  GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+  IMAGE_REGISTRY: gcr.io
+  IMAGE_OWNER: awesome-dogfish-208918
+  IMAGE_NAME: kubiscan
+
+jobs:
+  container:
+    name: Docker image
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Cancel all but latest workflow runs
+        if: ${{ !env.ACT }}
+        uses: styfle/cancel-workflow-action@0.11.0
+        with:
+          access_token: ${{ env.GITHUB_TOKEN }}
+
+      - name: Checkout custom actions
+        uses: actions/checkout@v3
+        with:
+          repository: flexibits/github-actions
+          token: ${{ env.FLEXIBITS_PAT }}
+          path: ./.github/actions
+
+      - name: Setup Flexibits workflow
+        uses: ./.github/actions/flexibits-setup
+
+      - name: Set $IMAGE
+        uses: ./.github/actions/composite-image-name
+
+      - name: Build and push the container image
+        uses: docker/build-push-action@v3
+        with:
+          file: ./Dockerfile.flexibits
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:latest
+          cache-from: type=registry,ref=${{ env.IMAGE }}:latest
+          cache-to: type=inline
