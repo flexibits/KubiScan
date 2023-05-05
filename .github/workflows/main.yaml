@@ -21,18 +21,11 @@ jobs:
         with:
           access_token: ${{ env.GITHUB_TOKEN }}
 
-      - name: Checkout custom actions
-        uses: actions/checkout@v3
-        with:
-          repository: flexibits/github-actions
-          token: ${{ env.FLEXIBITS_PAT }}
-          path: ./.github/actions
-
       - name: Setup Flexibits workflow
-        uses: ./.github/actions/flexibits-setup
+        uses: flexibits/github-actions/flexibits-setup@f088a6756133429d567ce6109c1660d7af7ca3de
 
       - name: Set $IMAGE
-        uses: ./.github/actions/composite-image-name
+        uses: flexibits/github-actions/composite-image-name@f088a6756133429d567ce6109c1660d7af7ca3de
 
       - name: Build and push the container image
         uses: docker/build-push-action@v3
