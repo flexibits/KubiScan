@@ -2,6 +2,10 @@ name: Docker Image
 
 on: [workflow_dispatch]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   GITHUB_TOKEN: ${{ github.token }}
   FLEXIBITS_PAT: ${{ secrets.FLEXIBITS_PAT }}
@@ -15,12 +19,6 @@ jobs:
     name: Docker image
     runs-on: ubuntu-20.04
     steps:
-      - name: Cancel all but latest workflow runs
-        if: ${{ !env.ACT }}
-        uses: styfle/cancel-workflow-action@0.11.0
-        with:
-          access_token: ${{ env.GITHUB_TOKEN }}
-
       - name: Setup Flexibits workflow
         uses: flexibits/github-actions/flexibits-setup@f088a6756133429d567ce6109c1660d7af7ca3de
 
