@@ -10,8 +10,9 @@ env:
   GITHUB_TOKEN: ${{ github.token }}
   FLEXIBITS_PAT: ${{ secrets.FLEXIBITS_PAT }}
   GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-  IMAGE_REGISTRY: gcr.io
+  IMAGE_REGISTRY: us-east1-docker.pkg.dev
   IMAGE_OWNER: awesome-dogfish-208918
+  IMAGE_REPOSITORY: kubiscan
   IMAGE_NAME: kubiscan
 
 jobs:
@@ -20,10 +21,10 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Setup Flexibits workflow
-        uses: flexibits/github-actions/flexibits-setup@f088a6756133429d567ce6109c1660d7af7ca3de
+        uses: flexibits/github-actions/flexibits-setup@adaa7b70d85a371483b059d3a228cdff88eed50b
 
       - name: Set $IMAGE
-        uses: flexibits/github-actions/composite-image-name@f088a6756133429d567ce6109c1660d7af7ca3de
+        uses: flexibits/github-actions/composite-image-name@adaa7b70d85a371483b059d3a228cdff88eed50b
 
       - name: Build and push the container image
         uses: docker/build-push-action@v3
