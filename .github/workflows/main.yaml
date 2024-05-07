@@ -23,6 +23,9 @@ jobs:
       - name: Setup Flexibits workflow
         uses: flexibits/github-actions/flexibits-setup@adaa7b70d85a371483b059d3a228cdff88eed50b
 
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Set $IMAGE
         uses: flexibits/github-actions/composite-image-name@adaa7b70d85a371483b059d3a228cdff88eed50b
 
@@ -34,5 +37,5 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE }}:latest
-          cache-from: type=registry,ref=${{ env.IMAGE }}:latest
-          cache-to: type=inline
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
