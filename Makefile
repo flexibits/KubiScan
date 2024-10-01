@@ -9,7 +9,7 @@ DEPLOYMENT_ARCH = linux/amd64
 push: buildx-builder
 	docker buildx build -f Dockerfile.flexibits \
 		--platform ${DEPLOYMENT_ARCH} \
-		--tag ${REGISTRY}/${IMAGE_NAME}:${VERSION}-dev \
+		--tag ${REGISTRY}/${IMAGE_NAME}:${VERSION} \
 		--push .
 
 buildx-builder:
