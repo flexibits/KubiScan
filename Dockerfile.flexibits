@@ -9,5 +9,4 @@ RUN pipenv install --deploy --system
 
 COPY . ./
 
-RUN echo 'python /app/KubiScan.py $@' > /usr/local/bin/kubiscan && \
-    chmod +x /usr/local/bin/kubiscan
+ENTRYPOINT [ "python", "/app/KubiScan.py" ]
