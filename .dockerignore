@@ -4,7 +4,7 @@
 !/misc/**
 !__init__.py
 !KubiScan.py
-!Pipfile
-!Pipfile.lock
+!pyproject.toml
+!uv.lock
 !risky_roles.yaml
 !static_risky_roles.py
