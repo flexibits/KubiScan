@@ -5,7 +5,8 @@ RUN pip install uv
 WORKDIR /app
 
 COPY pyproject.toml uv.lock ./
-ENV UV_PROJECT_ENVIRONMENT=/usr/local/
+ENV UV_NO_MANAGED_PYTHON=1
+ENV UV_PROJECT_ENVIRONMENT=/usr/local
 RUN uv sync --locked --no-dev
 
 COPY . ./
